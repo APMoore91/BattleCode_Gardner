@@ -6,20 +6,16 @@ public class Archon extends Robot {
 
     @Override
     public void onUpdate() {
-        int numberOfGardeners = 0;
-
         while (true) {
             try {
                 System.out.println(System.getProperty("bc.testing.seed", "0").hashCode() + 1);
                 Direction dir = randomDirection();
-                if (robotController.canHireGardener(dir) && Math.random() < .01 && numberOfGardeners < 16) {
+                if (robotController.canHireGardener(dir) && Math.random() < .01 && robotController.getRobotCount() < 16) {
                     robotController.hireGardener(dir);
-                    System.out.println("number of gardeners " + numberOfGardeners);
-                    numberOfGardeners++;
                 }
 
-                if (robotController.getTeamBullets() > 1000) {
-                    robotController.donate(robotController.getTeamBullets() - 1000);
+                if (robotController.getTeamBullets() > 750) {
+                    robotController.donate(robotController.getTeamBullets() - 750);
                 }
                 tryMove(dir);
                 Clock.yield();

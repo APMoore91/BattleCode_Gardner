@@ -15,15 +15,18 @@ class Gardener extends Robot {
                 if (gardnerDir == null) {
                     gardnerDir = dir;
                 }
-                if (!(robotController.isCircleOccupiedExceptByThisRobot(robotController.getLocation(), robotController.getType().bodyRadius * 4.0f))) {
+                if (!(robotController.isCircleOccupiedExceptByThisRobot(robotController.getLocation(), robotController.getType().bodyRadius * 6.0f))) {
                     settled = true;
                     if (robotController.canPlantTree(dir)) {
                         robotController.plantTree(dir);
                     }
                 }
                 if (settled) {
-                    if (robotController.canPlantTree(dir)) {
+                    if (robotController.canPlantTree(dir) && robotController.senseNearbyTrees().length < 3) {
                         robotController.plantTree(dir);
+                    }
+                    if(robotController.canBuildRobot(RobotType.SOLDIER, dir) && robotController.getRobotCount() < 25){
+                        robotController.buildRobot(RobotType.SOLDIER, dir);
                     }
                 }
 
