@@ -18,13 +18,14 @@ public class Soldier extends Robot{
                     tryMove(soldierDir);
                 }
 
-                RobotInfo[] enemiesInSight = robotController.senseNearbyRobots(robotController.getType().bodyRadius * 3, enemy);
+                RobotInfo[] enemiesInSight = robotController.senseNearbyRobots(robotController.getType().bodyRadius * 10, enemy);
 
                 if(enemiesInSight.length > 0){
-                    if(robotController.canFireSingleShot() && robotController.getTeamBullets() > 1000){
+                    if(robotController.canFireSingleShot() && robotController.getTeamBullets() > 500){
                         robotController.fireSingleShot(new Direction(robotController.getLocation(), enemiesInSight[0].location));
                     }
                 }
+                Clock.yield();
             }catch(Exception e){
                 System.out.println("A robotController Exception");
                 e.printStackTrace();
