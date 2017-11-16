@@ -7,7 +7,14 @@ public class Soldier extends Robot{
 
         while(true){
             try{
-                Direction dir = randomDirection();
+                RobotInfo[] enemiesInSight = robotController.senseNearbyRobots(robotController.getType().sensorRadius, enemy);
+                Direction dir = null;
+                if(enemiesInSight.length > 0 && enemiesInSight[0].getType() != RobotType.LUMBERJACK){
+                    soldierDir = new Direction(robotController.getLocation(), enemiesInSight[0].location);
+                }
+                else{
+                    dir = randomDirection();
+                }
                 if (soldierDir == null) {
                     soldierDir = dir;
                 }
@@ -17,8 +24,6 @@ public class Soldier extends Robot{
                     soldierDir = randomDirection();
                     tryMove(soldierDir);
                 }
-
-                RobotInfo[] enemiesInSight = robotController.senseNearbyRobots(robotController.getType().bodyRadius * 10, enemy);
 
                 if(enemiesInSight.length > 0){
                     if(robotController.canFireSingleShot() && robotController.getTeamBullets() > 500){
